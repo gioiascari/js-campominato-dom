@@ -10,75 +10,128 @@ La partita termina quando il giocatore clicca su una bomba o raggiunge il numero
 Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha cliccato su una cella che non era una b.
  */
 
-//Creo una griglia di gioco quadrata
-const grid = document.getElementById("grid");
-
+//Intestazione
 const buttonEasy = document.getElementById("easy");
+
 const buttonMedium = document.getElementById("medium");
+
 const buttonHard = document.getElementById("hard");
 
+buttonEasy.addEventListener("click", () => startGame(100, "easy"));
+
+buttonMedium.addEventListener("click", () => startGame(81, "medium"));
+
+buttonHard.addEventListener("click", () => startGame(49, "hard"));
+
+function startGame(totalCells, level) {
+  //Creo una griglia di gioco quadrata
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+
+  for (let i = 0; i <= totalCells; i++) {
+    //creo elemento
+    const cell = document.createElement("div");
+    //aggiungo classe per dargli uno stile
+    cell.className = "cell";
+    cell.classList.add(level);
+    //Associo il numero da 1-100
+    cell.innerText = i + 1;
+    //Aggiungo l'elemento alla cella
+    grid.appendChild(cell);
+    //Aggiungo un listener al click della cella
+    cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
+  }
+}
+
+/*
+function item(cell, easy) {
+  const posizioneBombe = generateBomb("easy");
+  cell.classList.add("cell", "easy");
+  for (let i = 1; i <= 100; i++) {
+    const cell = document.getElementById("cell-" + i);
+
+    cell.classList.toggle("bg-blue");
+    console.log(cell);
+  }
+}
+
+function generateBomb(max) {
+  let posizione = [];
+  while (posizione.length < 16) {
+    let posizione = generateRandomNNumber(1, max);
+    if (!posizione.includes(num)) {
+      posizione.push(number);
+    }
+  }
+  console.log(posizione);
+  return posizione;
+}
+
+function generateRandomNNumber(min, max) {
+  const range = max - min + 1;
+  return Math.floor(Math.random() * range) + min;
+}
+*/
+
 //L'utente indica un livello di difficoltà
-let userDifficult = prompt("Scegli difficoltà tra easy, medium oppure hard");
 
 //Con If divido le probabilità di gioco
 //Difficoltà easy
-
+/*
 if (userDifficult === "easy") {
   for (let i = 1; i <= 100; i++) {
     let message = i;
+    //creo elemento
+    const cell = document.createElement("div");
+    //aggiungo classe per dargli uno stile
+    cell.className = "cell";
+    cell.classList.add("cell", "easy");
+    //Associo il numero da 1-100
     cell.innerText = message;
+    //Aggiungo l'elemento alla cella
+    grid.appendChild(cell);
+    //Aggiungo un listener al click della cella
+    cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
+
     console.log(message);
-    const item = document.createElement("div");
-    item.classList.add("cell", "easy");
   }
 }
+
 //Difficoltà media
 else if (userDifficult === "medium") {
   for (let i = 1; i <= 81; i++) {
-    //Creo la cella
-    const cell = createCell();
-
-    // aggiungo la cella nella griglia
-    grid.appendChild(cell);
-    function createCell() {
-      const item = document.createElement("div");
-      item.classList.add("cell", "medium");
-      return item;
-    }
-
-    //Aggiungo il colore alla cella quando viene cliccata
-    cell.addEventListener("click", function (event) {
-      cell.classList.toggle("bg-blue");
-    });
-
-    //Distribuzione celle da 1 a 100
     let message = i;
+    //creo elemento
+    const cell = document.createElement("div");
+    //aggiungo classe per dargli uno stile
+    cell.className = "cell";
+    cell.classList.add("cell", "medium");
+    //Associo il numero da 1-100
     cell.innerText = message;
+    //Aggiungo l'elemento alla cella
+    grid.appendChild(cell);
+    //Aggiungo un listener al click della cella
+    cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
+
     console.log(message);
   }
-}
-//Difficoltà Difficile
+} //Difficoltà Difficile
 else if (userDifficult === "hard") {
   for (let i = 1; i <= 49; i++) {
-    //Creo la cella
-    const cell = createCell();
-
-    // aggiungo la cella nella griglia
-    grid.appendChild(cell);
-    function createCell() {
-      const item = document.createElement("div");
-      item.classList.add("cell", "hard");
-      return item;
-    }
-
-    //Aggiungo il colore alla cella quando viene cliccata
-    cell.addEventListener("click", function (event) {
-      cell.classList.toggle("bg-blue");
-    });
-
-    //Distribuzione celle da 1 a 100
     let message = i;
+    //creo elemento
+    const cell = document.createElement("div");
+    //aggiungo classe per dargli uno stile
+    cell.className = "cell";
+    cell.classList.add("cell", "hard");
+    //Associo il numero da 1-100
     cell.innerText = message;
+    //Aggiungo l'elemento alla cella
+    grid.appendChild(cell);
+    //Aggiungo un listener al click della cella
+    cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
+
     console.log(message);
   }
 }
+*/
