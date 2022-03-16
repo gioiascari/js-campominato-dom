@@ -23,115 +23,51 @@ buttonMedium.addEventListener("click", () => startGame(81, "medium"));
 
 buttonHard.addEventListener("click", () => startGame(49, "hard"));
 
+//Il computer deve generare 16 numeri casuali nello stesso range della difficoltà
+//Creo un array vuoto
+
+function startGame(totalCells, level) {
+  cells.classList.add(level);
+  let posizioneBomba = generatoreBomba(totalCells);
+
+  for (let i = 1; i < level; i++) {
+    const cell = document.getElementById("cell- " + i);
+    console.log(level);
+    const isBomb = posizioneBomba.includes(i);
+    if (isBomb) {
+      cell.classList.add("bg-red");
+    } else "bg-blue";
+  }
+}
+function generatoreBomba(max) {
+  const posizione = [];
+  console.log(posizione);
+  while (posizione.length < 16) {
+    const numero = generatoreNumeriRandom(1, max);
+    if (!posizione.includes(numero)) {
+      posizione.push(numero);
+
+      console.log(posizione);
+    }
+  }
+  return posizione;
+}
+
 function startGame(totalCells, level) {
   //Creo una griglia di gioco quadrata
   const grid = document.getElementById("grid");
   grid.innerHTML = "";
 
-  for (let i = 0; i <= totalCells; i++) {
+  for (let i = 0; i < totalCells; i++) {
     //creo elemento
-    const cell = document.createElement("div");
+    const cells = document.createElement("div");
     //aggiungo classe per dargli uno stile
-    cell.className = "cell";
-    cell.classList.add(level);
+    cells.className = "cell";
+    cells.classList.add(level);
     //Associo il numero da 1-100
-    cell.innerText = i + 1;
+    cells.innerText = i + 1;
     //Aggiungo l'elemento alla cella
-    grid.appendChild(cell);
-    //Aggiungo un listener al click della cella
-    cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
+    grid.appendChild(cells);
   }
+  console.log(totalCells);
 }
-
-/*
-function item(cell, easy) {
-  const posizioneBombe = generateBomb("easy");
-  cell.classList.add("cell", "easy");
-  for (let i = 1; i <= 100; i++) {
-    const cell = document.getElementById("cell-" + i);
-
-    cell.classList.toggle("bg-blue");
-    console.log(cell);
-  }
-}
-
-function generateBomb(max) {
-  let posizione = [];
-  while (posizione.length < 16) {
-    let posizione = generateRandomNNumber(1, max);
-    if (!posizione.includes(num)) {
-      posizione.push(number);
-    }
-  }
-  console.log(posizione);
-  return posizione;
-}
-
-function generateRandomNNumber(min, max) {
-  const range = max - min + 1;
-  return Math.floor(Math.random() * range) + min;
-}
-*/
-
-//L'utente indica un livello di difficoltà
-
-//Con If divido le probabilità di gioco
-//Difficoltà easy
-/*
-if (userDifficult === "easy") {
-  for (let i = 1; i <= 100; i++) {
-    let message = i;
-    //creo elemento
-    const cell = document.createElement("div");
-    //aggiungo classe per dargli uno stile
-    cell.className = "cell";
-    cell.classList.add("cell", "easy");
-    //Associo il numero da 1-100
-    cell.innerText = message;
-    //Aggiungo l'elemento alla cella
-    grid.appendChild(cell);
-    //Aggiungo un listener al click della cella
-    cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
-
-    console.log(message);
-  }
-}
-
-//Difficoltà media
-else if (userDifficult === "medium") {
-  for (let i = 1; i <= 81; i++) {
-    let message = i;
-    //creo elemento
-    const cell = document.createElement("div");
-    //aggiungo classe per dargli uno stile
-    cell.className = "cell";
-    cell.classList.add("cell", "medium");
-    //Associo il numero da 1-100
-    cell.innerText = message;
-    //Aggiungo l'elemento alla cella
-    grid.appendChild(cell);
-    //Aggiungo un listener al click della cella
-    cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
-
-    console.log(message);
-  }
-} //Difficoltà Difficile
-else if (userDifficult === "hard") {
-  for (let i = 1; i <= 49; i++) {
-    let message = i;
-    //creo elemento
-    const cell = document.createElement("div");
-    //aggiungo classe per dargli uno stile
-    cell.className = "cell";
-    cell.classList.add("cell", "hard");
-    //Associo il numero da 1-100
-    cell.innerText = message;
-    //Aggiungo l'elemento alla cella
-    grid.appendChild(cell);
-    //Aggiungo un listener al click della cella
-    cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
-
-    console.log(message);
-  }
-}
-*/
