@@ -21,8 +21,6 @@
   justify-content: center;
 }
 .cell {
-  width: calc(100% / 10);
-  height: calc(100% / 10);
   cursor: pointer;
   display: flex;
   align-items: center;
