@@ -23,51 +23,61 @@ buttonMedium.addEventListener("click", () => startGame(81, "medium"));
 
 buttonHard.addEventListener("click", () => startGame(49, "hard"));
 
-//Il computer deve generare 16 numeri casuali nello stesso range della difficoltà
-//Creo un array vuoto
-
-function startGame(totalCells, level) {
-  cells.classList.add(level);
-  let posizioneBomba = generatoreBomba(totalCells);
-
-  for (let i = 1; i < level; i++) {
-    const cell = document.getElementById("cell- " + i);
-    console.log(level);
-    const isBomb = posizioneBomba.includes(i);
-    if (isBomb) {
-      cell.classList.add("bg-red");
-    } else "bg-blue";
-  }
-}
-function generatoreBomba(max) {
-  const posizione = [];
-  console.log(posizione);
-  while (posizione.length < 16) {
-    const numero = generatoreNumeriRandom(1, max);
-    if (!posizione.includes(numero)) {
-      posizione.push(numero);
-
-      console.log(posizione);
-    }
-  }
-  return posizione;
-}
+const numeroBombe = 16;
 
 function startGame(totalCells, level) {
   //Creo una griglia di gioco quadrata
   const grid = document.getElementById("grid");
   grid.innerHTML = "";
 
-  for (let i = 0; i < totalCells; i++) {
+  for (let i = 1; i <= totalCells; i++) {
     //creo elemento
-    const cells = document.createElement("div");
+    const cell = document.createElement("div");
     //aggiungo classe per dargli uno stile
-    cells.className = "cell";
-    cells.classList.add(level);
+    cell.className = "cell";
+    cell.classList.add(level);
     //Associo il numero da 1-100
-    cells.innerText = i + 1;
+    cell.innerText = i;
     //Aggiungo l'elemento alla cella
-    grid.appendChild(cells);
+    grid.appendChild(cell);
+    //Aggiungo un listener al click della cella
+    cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
   }
-  console.log(totalCells);
 }
+/*
+//Creo le bombe in un array
+function generatoreBomba(max) {
+  const listaBombe = [];
+  while (listaBombe.length < 16) {
+    let numero = random(1, max);
+    if (!listaBombe.includes(numero)) {
+      listaBombe.push(numer);
+      console.log(listaBombe);
+    }
+  }
+}
+//Generatore numeri casuali
+function random(min, max) {
+  const range = max - min + 1;
+  return Math.floor(Math.random() * range) + min;
+}*/
+/*GRIGLIA AGGIUSTATA E RIORDINATA-----------------------------------
+function startGame(totalCells, level) {
+  //Creo una griglia di gioco quadrata
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+
+  for (let i = 0; i <= totalCells; i++) {
+    //creo elemento
+    const cell = document.createElement("div");
+    //aggiungo classe per dargli uno stile
+    cell.className = "cell";
+    cell.classList.add(level);
+    //Associo il numero da 1-100
+    cell.innerText = i + 1;
+    //Aggiungo l'elemento alla cella
+    grid.appendChild(cell);
+    //Aggiungo un listener al click della cella
+    cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
+  }
+}*/
