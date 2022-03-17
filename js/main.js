@@ -25,43 +25,31 @@ buttonHard.addEventListener("click", () => startGame(49, "hard"));
 
 const numeroBombe = 16;
 
-//Genero i 16 numeri casuali
-function numeriBombe(max) {
+//Fine Intestazione
+
+function startGame(totalCells, levelClass) {
+  startGrid(totalCells, levelClass);
+  const posizioneBomba = generatoreDiBombe(totalCells);
+  console.log(posizioneBomba);
+}
+//GENERO NUMERI CASUALI NELLO STESSO RANGE DI DIFFICOLTà
+function generatoreDiBombe(max) {
   const posizionamenti = [];
   while (posizionamenti.length < numeroBombe) {
-    const numeri = generatoreNumeriRandom(1, max);
-    if (!posizionamenti.includes(numeri)) {
-      posizionamenti.push(numeri);
+    const numero = generatoreNumeriRandom(1, max);
+    if (!posizionamenti.includes(numero)) {
+      posizionamenti.push(numero);
     }
   }
   return posizionamenti;
 }
+//INSERIMENTO BOMBE, SE PRENDI UNA BOMBA CON IL CLICK SI COLORA DI ROSSO ANZICHè BLU
 
-function startGame(totalCells, levelClass) {
-  //Genero la griglia
-  startGrid(totalCells, levelClass);
-  //Genero posizionamento bombe
-  const posizioneBombe = numeriBombe(totalCells);
-
-  console.log(posizioneBombe);
-  //Creo un ciclo per generare la posizione della bomba
-  for (let i = 0; i < totalCells.length; i++) {
-    const cell = totalCells[i];
-
-    //Creo il posizionamento del colore della bomba
-    cell.addEventListener("click", function () {
-      const isBomb = posizioneBombe.includes(i);
-      console.log(isBomb);
-
-      if (isBomb) {
-        cell.classList.add("bg-red");
-      } else {
-        cell.classList.add("bg-blue");
-      }
-    });
-  }
+//FUNZIONI UTILI GENERATORE DI NUMERI RANDOM
+function generatoreNumeriRandom(min, max) {
+  return Math.floor(Math.random() * (max - min) + 1) + min;
 }
-
+//GRIGLIA INIZIALE
 function startGrid(totalCells, levelClass) {
   // Recupero la griglia con l'id
   const grid = document.getElementById("grid");
@@ -79,12 +67,7 @@ function startGrid(totalCells, levelClass) {
     //Associo il numero da 1 a 100 al testo contenuto nella cella
     cell.innerText = i;
     grid.appendChild(cell);
-
+    console.log(i);
     cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
   }
-}
-
-//FUNZIONI UTILI
-function generatoreNumeriRandom(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
 }
