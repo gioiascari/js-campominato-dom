@@ -81,7 +81,7 @@ function startGrid(totalCells, levelClass) {
     cell.className = "cell";
     cell.classList.add(levelClass);
     //Associo il numero da 1 a 100 al testo contenuto nella cella
-    cell.innerText = i;
+    cell.innerText = i + 1;
     grid.appendChild(cell);
   }
 }
