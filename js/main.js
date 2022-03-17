@@ -29,8 +29,23 @@ const numeroBombe = 16;
 
 function startGame(totalCells, levelClass) {
   startGrid(totalCells, levelClass);
+
   const posizioneBomba = generatoreDiBombe(totalCells);
+
   console.log(posizioneBomba);
+  //SOSTITUISCO IL POSIZIONAMENTO DEL COLORE AZZURO IN QUESTA FUNZIONE PERCHè COSì FACENDO POSSO MODIFICARE ANCHE LA POSIZIONE BOMBA
+  //cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
+  for (let i = 1; i <= totalCells; i++) {
+    const cell = document.getElementById("cell-" + i);
+    cell.addEventListener("click", () => {
+      const isBomb = posizioneBomba.includes(i);
+      if (isBomb) {
+        cell.classList.add("bg-red");
+      } else {
+        cell.classList.add("bg-blue");
+      }
+    });
+  }
 }
 //GENERO NUMERI CASUALI NELLO STESSO RANGE DI DIFFICOLTà
 function generatoreDiBombe(max) {
@@ -57,17 +72,16 @@ function startGrid(totalCells, levelClass) {
   grid.innerHTML = "";
 
   // 2. creo totalCells div all'interno della griglia
-  for (let i = 1; i <= totalCells; i++) {
+  for (let i = 0; i < totalCells; i++) {
     //Creo l'elemento
     const cell = document.createElement("div");
     //Aggiungo classi per dargli uno stile
+    cell.id = "cell-" + (i + 1);
 
     cell.className = "cell";
     cell.classList.add(levelClass);
     //Associo il numero da 1 a 100 al testo contenuto nella cella
     cell.innerText = i;
     grid.appendChild(cell);
-    console.log(i);
-    cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
   }
 }
