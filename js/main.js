@@ -25,6 +25,8 @@ buttonHard.addEventListener("click", () => startGame(49, "hard"));
 
 const numeroBombe = 16;
 
+let punteggio = 0;
+
 //Fine Intestazione
 
 function startGame(totalCells, levelClass) {
@@ -47,6 +49,22 @@ function startGame(totalCells, levelClass) {
     });
   }
 }
+
+//CREO UNA FUNZIONE CHE MI PERMETTA DI CALCOLARE IL PUNTEGGIO
+function addClickToCells(bombe) {
+  //SELEZIONO TUTTE LE CELLE
+  const tutteLeCelle = document.querySelectorAll(".cell");
+  //CREO UN CICLO FOR PER SEGNARE IL PUNTEGGIO E SE LA BOMBA è STATA CLICCATA
+  for (let i = 0; i < tutteLeCelle.length; i++) {
+    const cell = tutteLeCelle[i];
+  }
+}
+//INIZZIALIZZO IL GAME OVER CON UNA FUNZIONE
+function celleBloccate() {
+  const grid = document.getElementById("grid");
+  grid.classList.add("game-over");
+}
+
 //GENERO NUMERI CASUALI NELLO STESSO RANGE DI DIFFICOLTà
 function generatoreDiBombe(max) {
   const posizionamenti = [];
@@ -58,7 +76,6 @@ function generatoreDiBombe(max) {
   }
   return posizionamenti;
 }
-//INSERIMENTO BOMBE, SE PRENDI UNA BOMBA CON IL CLICK SI COLORA DI ROSSO ANZICHè BLU
 
 //FUNZIONI UTILI GENERATORE DI NUMERI RANDOM
 function generatoreNumeriRandom(min, max) {
