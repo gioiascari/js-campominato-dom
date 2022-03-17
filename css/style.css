@@ -1,7 +1,11 @@
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+}
+body {
+  background-color: palevioletred;
 }
 .title {
   text-align: center;
@@ -39,16 +43,25 @@
   height: calc(100% / 7);
 }
 
-.cell.bg-blue {
+.bg-blue {
   transition: ease-out 0.5s;
   background-color: aqua;
 }
-.cell.bg-red {
-  transition: ease-out 0.5s;
+.bg-red {
   background-color: red;
 }
 
 .btn-container {
   display: flex;
+  margin-top: 20px;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.container {
+  width: 50%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
 }

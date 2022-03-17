@@ -25,59 +25,66 @@ buttonHard.addEventListener("click", () => startGame(49, "hard"));
 
 const numeroBombe = 16;
 
-function startGame(totalCells, level) {
-  //Creo una griglia di gioco quadrata
-  const grid = document.getElementById("grid");
-  grid.innerHTML = "";
-
-  for (let i = 1; i <= totalCells; i++) {
-    //creo elemento
-    const cell = document.createElement("div");
-    //aggiungo classe per dargli uno stile
-    cell.className = "cell";
-    cell.classList.add(level);
-    //Associo il numero da 1-100
-    cell.innerText = i;
-    //Aggiungo l'elemento alla cella
-    grid.appendChild(cell);
-    //Aggiungo un listener al click della cella
-    cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
-  }
-}
-/*
-//Creo le bombe in un array
-function generatoreBomba(max) {
-  const listaBombe = [];
-  while (listaBombe.length < 16) {
-    let numero = random(1, max);
-    if (!listaBombe.includes(numero)) {
-      listaBombe.push(numer);
-      console.log(listaBombe);
+//Genero i 16 numeri casuali
+function numeriBombe(max) {
+  const posizionamenti = [];
+  while (posizionamenti.length < numeroBombe) {
+    const numeri = generatoreNumeriRandom(1, max);
+    if (!posizionamenti.includes(numeri)) {
+      posizionamenti.push(numeri);
     }
   }
+  return posizionamenti;
 }
-//Generatore numeri casuali
-function random(min, max) {
-  const range = max - min + 1;
-  return Math.floor(Math.random() * range) + min;
-}*/
-/*GRIGLIA AGGIUSTATA E RIORDINATA-----------------------------------
-function startGame(totalCells, level) {
-  //Creo una griglia di gioco quadrata
+
+function startGame(totalCells, levelClass) {
+  //Genero la griglia
+  startGrid(totalCells, levelClass);
+  //Genero posizionamento bombe
+  const posizioneBombe = numeriBombe(totalCells);
+
+  console.log(posizioneBombe);
+  //Creo un ciclo per generare la posizione della bomba
+  for (let i = 0; i < totalCells.length; i++) {
+    const cell = totalCells[i];
+
+    //Creo il posizionamento del colore della bomba
+    cell.addEventListener("click", function () {
+      const isBomb = posizioneBombe.includes(i);
+      console.log(isBomb);
+
+      if (isBomb) {
+        cell.classList.add("bg-red");
+      } else {
+        cell.classList.add("bg-blue");
+      }
+    });
+  }
+}
+
+function startGrid(totalCells, levelClass) {
+  // Recupero la griglia con l'id
   const grid = document.getElementById("grid");
+  // resetto il contenuto della griglia
   grid.innerHTML = "";
 
-  for (let i = 0; i <= totalCells; i++) {
-    //creo elemento
+  // 2. creo totalCells div all'interno della griglia
+  for (let i = 1; i <= totalCells; i++) {
+    //Creo l'elemento
     const cell = document.createElement("div");
-    //aggiungo classe per dargli uno stile
+    //Aggiungo classi per dargli uno stile
+
     cell.className = "cell";
-    cell.classList.add(level);
-    //Associo il numero da 1-100
-    cell.innerText = i + 1;
-    //Aggiungo l'elemento alla cella
+    cell.classList.add(levelClass);
+    //Associo il numero da 1 a 100 al testo contenuto nella cella
+    cell.innerText = i;
     grid.appendChild(cell);
-    //Aggiungo un listener al click della cella
+
     cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
   }
-}*/
+}
+
+//FUNZIONI UTILI
+function generatoreNumeriRandom(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
