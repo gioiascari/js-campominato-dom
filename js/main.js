@@ -42,7 +42,7 @@ function addClickToCells(bombe) {
   let punteggio = 0;
   //SELEZIONO TUTTE LE CELLE
   const tutteLeCelle = document.querySelectorAll(".cell");
-  //CREO UN CICLO FOR PER SEGNARE IL PUNTEGGIO E SE LA BOMBA è STATA CLICCATA
+  //CREO UN CICLO FOR PER  SEGNARE IL PUNTEGGIO E SE LA BOMBA è STATA CLICCATA
   for (let i = 0; i < tutteLeCelle.length; i++) {
     const cell = tutteLeCelle[i];
     cell.addEventListener("click", () => {
