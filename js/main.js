@@ -25,8 +25,6 @@ buttonHard.addEventListener("click", () => startGame(49, "hard"));
 
 const numeroBombe = 16;
 
-let punteggio = 0;
-
 //Fine Intestazione
 
 function startGame(totalCells, levelClass) {
@@ -35,30 +33,70 @@ function startGame(totalCells, levelClass) {
   const posizioneBomba = generatoreDiBombe(totalCells);
 
   console.log(posizioneBomba);
-  //SOSTITUISCO IL POSIZIONAMENTO DEL COLORE AZZURO IN QUESTA FUNZIONE PERCHè COSì FACENDO POSSO MODIFICARE ANCHE LA POSIZIONE BOMBA
-  //cell.addEventListener("click", () => cell.classList.toggle("bg-blue"));
-  for (let i = 1; i <= totalCells; i++) {
-    const cell = document.getElementById("cell-" + i);
-    cell.addEventListener("click", () => {
-      const isBomb = posizioneBomba.includes(i);
-      if (isBomb) {
-        cell.classList.add("bg-red");
-      } else {
-        cell.classList.add("bg-blue");
-      }
-    });
-  }
+
+  addClickToCells(posizioneBomba);
 }
 
 //CREO UNA FUNZIONE CHE MI PERMETTA DI CALCOLARE IL PUNTEGGIO
 function addClickToCells(bombe) {
+  let punteggio = 0;
   //SELEZIONO TUTTE LE CELLE
   const tutteLeCelle = document.querySelectorAll(".cell");
   //CREO UN CICLO FOR PER SEGNARE IL PUNTEGGIO E SE LA BOMBA è STATA CLICCATA
   for (let i = 0; i < tutteLeCelle.length; i++) {
     const cell = tutteLeCelle[i];
+    cell.addEventListener("click", () => {
+      //CREO GAME OVER
+      const gameOver = checkClick(cell, i, bombe);
+      //SE PERDI IL GIOCO SI FERMA
+      if (gameOver) {
+        celleBloccate();
+        mostraBombe(bombe);
+      }
+      //ALTRIMENTI PUOI ANDARE AVANTI ED AUMENTARE IL PUNTEGGIO
+      else {
+        punteggio++;
+        console.log(punteggio);
+        cell.classList.add("cliccato");
+        //CREO LE CELLE CHE NON HANNO LE BOMBE
+        const celleSenzaBombe = tutteLeCelle.length - numeroBombe;
+        if (punteggio >= celleSenzaBombe) {
+          celleBloccate();
+          mostraRisultato(punteggio);
+        }
+      }
+    });
   }
 }
+//CREO IL WIN ALERT
+function mostraRisultato(punti) {
+  alert("Grande, hai fatto un totale di " + punti + "punti");
+}
+//CONTROLLO SE L'UTENTE HA CLICCATO UNA BOMBA
+function checkClick(cell, i, puntoBomba) {
+  console.log(i);
+  const isBomb = puntoBomba.includes(i + 1);
+  if (isBomb) {
+    cell.classList.add("bg-red");
+  } else {
+    cell.classList.add("bg-blue");
+  }
+  return isBomb;
+}
+
+//RIVELO IL POSIZIONAMENTO DELLE BOMBE
+function mostraBombe(bombeDaMostrare) {
+  //PRENDO TUTTE LE CELLE
+  const tutteLeCelle = document.querySelectorAll(".cell");
+  for (let i = 0; i < tutteLeCelle.length; i++) {
+    const rivelaBombe = bombeDaMostrare.includes(i + 1);
+    if (rivelaBombe) {
+      const cellaBomba = tutteLeCelle[i];
+      cellaBomba.classList.add("bg-red");
+    }
+  }
+}
+
 //INIZZIALIZZO IL GAME OVER CON UNA FUNZIONE
 function celleBloccate() {
   const grid = document.getElementById("grid");
